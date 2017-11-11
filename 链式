@@ -1,0 +1,58 @@
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+typedef int ElemType;
+using namespace std;
+
+typedef struct Node {
+
+ElemType data;
+
+struct Node* Next;
+
+}Node;
+typedef struct Node* LinkList;
+
+LinkList LinkedListInit()
+{
+    Node *L;
+    L = (Node *)malloc(sizeof(Node));   //申请结点空间
+    if(L == NULL)                       //判断是否有足够的内存空间
+        printf("申请内存空间失败\n");
+    L->Next = NULL;                  //将next设置为NULL,初始长度为0的单链表
+}
+LinkList LinkedListCreatT(int a[2])//头插
+{
+    Node *L;
+    L = (Node *)malloc(sizeof(Node));   //申请头结点空间
+    L->Next = NULL;                  //初始化一个空链表
+    Node *r;
+    r = L;                          //r始终指向终端结点，开始时指向头结点
+    ElemType x;
+    int i=2;                         //x为链表数据域中的数据
+    while(i--)
+    {
+        Node *p;
+        p = (Node *)malloc(sizeof(Node));   //申请新的结点
+        p->data = a[i];                     //结点数据域赋值
+        r->Next = p;                 //将结点插入到表头L-->|1|-->|2|-->NULL
+        r = p;
+    }
+    r->Next = NULL;
+
+    return L;
+}
+int main()
+{
+    LinkList lis,start;
+    int a[2]={1,2};
+    lis = LinkedListInit();
+    start = LinkedListInit();
+    lis = LinkedListCreatT(a);
+    for(start = lis->Next; start != NULL; start = start->Next)
+        printf("%d ",start->data);
+     printf("\n");
+
+
+        return 0;
+}
